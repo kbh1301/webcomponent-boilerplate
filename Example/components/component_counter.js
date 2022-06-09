@@ -1,35 +1,27 @@
-class ComponentCounter extends HTMLElement {
+customElements.define("component-counter", class extends HTMLElement {
     htmlcss() { return /*html*/`
-        <style>
-        </style>
-
         <button id="dec">-</button>
         <span id="count"></span>
         <button id="inc">+</button>
     `;}
 
-    script(shadowRoot) {
+    script() {
         let count = 0;
 
-        const update = (count) => shadowRoot.getElementById("count").innerHTML = count;
+        const update = (count) => this.querySelector("#count").innerHTML = count;
         const inc = () => update(++count);
         const dec = () => update(--count);
 
-        shadowRoot.getElementById("inc").onclick = () => inc();
-        shadowRoot.getElementById("dec").onclick = () => dec();
+        this.querySelector("#inc").onclick = () => inc();
+        this.querySelector("#dec").onclick = () => dec();
         update(count);    
     }
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
     }
     connectedCallback() {
-        const shadowRoot = this.shadowRoot;
-        const template = document.createElement('template');
-        template.innerHTML = this.htmlcss();
-        shadowRoot.appendChild(template.content.cloneNode(true));
-        this.script(shadowRoot);
+        this.innerHTML = this.htmlcss();
+        this.script();
     }
-}
-customElements.define("component-counter", ComponentCounter);
+});

@@ -1,4 +1,4 @@
-customElements.define("component-box", class extends HTMLElement {
+customElements.define("component-boxshadow", class extends HTMLElement {
     htmlcss() { return /*html*/`
         <style>
             #box {
@@ -16,9 +16,9 @@ customElements.define("component-box", class extends HTMLElement {
         <button id="button1">Button 1</button>
     `;}
 
-    script() {
-        const box = this.querySelector('#box');
-        const button1 = this.querySelector('#button1');
+    script(shadowRoot) {
+        const box = shadowRoot.getElementById('box');
+        const button1 = shadowRoot.getElementById('button1');
 
         button1.onclick = () => {
             box.classList.toggle('blue');
@@ -27,9 +27,13 @@ customElements.define("component-box", class extends HTMLElement {
 
     constructor() {
         super();
+        this.attachShadow({ mode: "open" });
     }
     connectedCallback() {
-        this.innerHTML = this.htmlcss();
-        this.script();;
+        const shadowRoot = this.shadowRoot;
+        const template = document.createElement('template');
+        template.innerHTML = this.htmlcss();
+        shadowRoot.appendChild(template.content.cloneNode(true));
+        this.script(shadowRoot);
     }
 });

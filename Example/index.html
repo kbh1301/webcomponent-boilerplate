@@ -5,20 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebComponent Example</title>
+    <link rel="stylesheet" href="styles.css">
 
+    <script src="./components/component_boxshadow.js"></script>
+    <script src="./components/component_countershadow.js"></script>
     <script src="./components/component_box.js"></script>
     <script src="./components/component_counter.js"></script>
 </head>
 <body>
+    <p>Shadow DOM is not affected by global styling:</p>
+    <pre><code>
+        button {
+            background-color: lightblue;        
+        }
+    </code></pre><br/>
+    <div id="container">
+        <div>
+            <h3>WITH shadow DOM:</h3>
+            <div class="container">
+                <component-countershadow></component-countershadow>
+                <component-countershadow></component-countershadow>
+                <component-boxshadow></component-boxshadow>
+                <component-boxshadow></component-boxshadow>
+            </div>
+        </div>
+        <div>
+            <h3>WITHOUT shadow DOM:</h3>
+            <div class="container">
+                <component-counter></component-counter>
+                <component-counter></component-counter>
+                <component-box></component-box>
+                <component-box></component-box>
+            </div>
+        </div>
+    </div>
+
     <style>
-        component-counter {
-            display: block;
+        button {
+            background-color: lightblue;
         }
     </style>
-
-    <component-box></component-box>
-    <component-box></component-box>
-    <component-counter></component-counter>
-    <component-counter></component-counter>
 </body>
 </html>
