@@ -21,7 +21,11 @@ customElements.define("component-counter", class extends HTMLElement {
         super();
     }
     connectedCallback() {
-        this.innerHTML = this.htmlcss();
-        this.script();
+        const temp = document.createElement('template');
+        temp.innerHTML = this.htmlcss();
+        if(!this.firstElementChild) {
+            this.prepend(temp.content);
+            this.script();
+        }
     }
 });
