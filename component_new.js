@@ -17,8 +17,9 @@ customElements.define(`component-new`, class extends HTMLElement {
         super();
     }
     connectedCallback() {
-        if(!this.firstElementChild) {
-            const componentName = self.tagName.toLowerCase().replace('component-','');
+        const htmlTemp = document.createElement('template');
+        htmlTemp.innerHTML += this.html();
+        if(htmlTemp.content.firstElementChild) {
             const styleId = `style-component-${componentName}`;
             if(!this.ownerDocument.querySelector(`#${styleId}`)) {
                 const cssTemp = document.createElement('template');
@@ -26,8 +27,6 @@ customElements.define(`component-new`, class extends HTMLElement {
                 cssTemp.content.querySelector("style").id = styleId;
                 this.ownerDocument.head.append(cssTemp.content);
             }
-            const htmlTemp = document.createElement('template');
-            htmlTemp.innerHTML += this.html();
             this.prepend(htmlTemp.content);
 
             this.js();
