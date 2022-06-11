@@ -1,9 +1,14 @@
-customElements.define("component-new", class extends HTMLElement {
-    htmlcss() { return /*html*/`
+const componentName = "";
+customElements.define(`component-${componentName}`, class extends HTMLElement {
+    css() { return /*html*/`
+
+    `;}
+    
+    html() { return /*html*/`
 
     `;}
 
-    script() {
+    js() {
         
     }
 
@@ -11,11 +16,19 @@ customElements.define("component-new", class extends HTMLElement {
         super();
     }
     connectedCallback() {
-        const temp = document.createElement('template');
-        temp.innerHTML = this.htmlcss();
         if(!this.firstElementChild) {
-            this.prepend(temp.content);
-            this.script();
+            const styleId = `style-component-${componentName}`;
+            if(!this.ownerDocument.querySelector(`#${styleId}`)) {
+                const cssTemp = document.createElement('template');
+                cssTemp.innerHTML += this.css();
+                cssTemp.content.querySelector("style").id = styleId;
+                this.ownerDocument.head.append(cssTemp.content);
+            }
+            const htmlTemp = document.createElement('template');
+            htmlTemp.innerHTML += this.html();
+            this.prepend(htmlTemp.content);
+
+            this.js();
         }
     }
 });
