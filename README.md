@@ -3,7 +3,7 @@
 2. Build component js within `script()`
 3. Rename: filename `component_new.js` & code `component-new` -->
 
-1. Rename: filename `component_new.js` & code `componentName = ""`
+1. Rename: filename `component_new.js` & code `component-new`
 2. Build component css, html, and js in respective functions
     - Note: css and html functions are built as html-template strings
 

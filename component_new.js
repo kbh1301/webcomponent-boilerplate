@@ -1,5 +1,4 @@
-const componentName = "";
-customElements.define(`component-${componentName}`, class extends HTMLElement {
+customElements.define(`component-new`, class extends HTMLElement {
     css() { return /*html*/`
         <style>
 
@@ -19,6 +18,7 @@ customElements.define(`component-${componentName}`, class extends HTMLElement {
     }
     connectedCallback() {
         if(!this.firstElementChild) {
+            const componentName = self.tagName.toLowerCase().replace('component-','');
             const styleId = `style-component-${componentName}`;
             if(!this.ownerDocument.querySelector(`#${styleId}`)) {
                 const cssTemp = document.createElement('template');
