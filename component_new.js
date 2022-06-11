@@ -20,6 +20,7 @@ customElements.define(`component-new`, class extends HTMLElement {
         const htmlTemp = document.createElement('template');
         htmlTemp.innerHTML += this.html();
         if(htmlTemp.content.firstElementChild) {
+            const componentName = self.tagName.toLowerCase().replace('component-','');
             const styleId = `style-component-${componentName}`;
             if(!this.ownerDocument.querySelector(`#${styleId}`)) {
                 const cssTemp = document.createElement('template');
