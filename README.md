@@ -10,7 +10,7 @@
 <img src="./Example/readme_img.png" width=550>
 
 # Usage:
-1. Add `<script src="./components/component_new.js"></script>` to head of target html file
+1. Add `<script src="./components/component_new.js" type="module"></script>` to head of target html file
 2. Add `<component-new></component-new>` to body of target html file
 
 # Shadow DOM Option:
