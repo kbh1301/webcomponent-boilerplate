@@ -1,9 +1,11 @@
 const componentName = "";
 customElements.define(`component-${componentName}`, class extends HTMLElement {
     css() { return /*html*/`
+        <style>
 
+        </style>
     `;}
-    
+
     html() { return /*html*/`
 
     `;}
