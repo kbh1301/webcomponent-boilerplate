@@ -14,7 +14,7 @@ customElements.define(`component-new`, class extends HTMLElement {
     }
 
     constructor() {
-        super();
+        self = super();
     }
     connectedCallback() {
         const innerElmts = [];
