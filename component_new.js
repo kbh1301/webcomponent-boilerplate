@@ -9,7 +9,7 @@ customElements.define(`component-new`, class extends HTMLElement {
 
     `;}
 
-    js() {
+    js(innerElmts) {
         
     }
 
