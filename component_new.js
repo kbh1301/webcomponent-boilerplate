@@ -17,6 +17,9 @@ customElements.define(`component-new`, class extends HTMLElement {
         super();
     }
     connectedCallback() {
+        const innerElmts = [];
+        this.childNodes.forEach(elmt => innerElmts.push(elmt));
+
         const htmlTemp = document.createElement('template');
         htmlTemp.innerHTML += this.html();
         if(htmlTemp.content.firstElementChild) {
@@ -30,7 +33,7 @@ customElements.define(`component-new`, class extends HTMLElement {
             }
             this.prepend(htmlTemp.content);
 
-            this.js();
+            this.js(innerElmts);
         }
     }
 });
