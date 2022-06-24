@@ -44,6 +44,7 @@ customElements.define(`component-new`, class extends HTMLElement {
         if (!this.rendered) {
             Array.from(this.childNodes).forEach(child => this.innerElmts.push(child));
             this.render();
+            document.addEventListener('DOMContentLoaded', () => this.js());
             this.rendered = true;
         }
     }
