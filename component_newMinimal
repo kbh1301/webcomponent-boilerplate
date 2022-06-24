@@ -1,0 +1,17 @@
+customElements.define("component-new", class extends HTMLElement {
+    htmlcss() { return /*html*/`
+
+    `;}
+
+    script() {
+        
+    }
+
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        this.innerHTML = this.htmlcss();
+        this.script();
+    }
+});
