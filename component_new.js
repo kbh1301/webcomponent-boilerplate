@@ -5,35 +5,46 @@ customElements.define(`component-new`, class extends HTMLElement {
         </style>
     `;}
 
-    html() { return /*html*/`
+    html() {
+        let defaultSlot = '';
+        this.innerElmts.forEach(elmt => { if(!elmt.slot) defaultSlot += elmt.outerHTML || elmt.textContent; });
 
-    `;}
+        return /*html*/`
 
-    js(innerElmts) {
+            ${defaultSlot}
+        `;
+    }
+
+    js() {
         
     }
 
+    static get observedAttributes() { return []; }
+    attributeChangedCallback(name, oldValue, newValue) { if(this.rendered) this.render(); }
+
+    render() {
+        const componentName = this.tagName.toLowerCase().replace("component-", "");
+        const styleId = `style-component-${componentName}`;
+        if (!this.ownerDocument.querySelector(`#${styleId}`)) {
+            const cssTemp = document.createElement("template");
+            cssTemp.innerHTML += this.css();
+            cssTemp.content.querySelector("style").id = styleId;
+            this.ownerDocument.head.append(cssTemp.content);
+        }
+        const htmlTemp = document.createElement("template");
+        htmlTemp.innerHTML += this.html();
+        this.innerHTML = htmlTemp.innerHTML; 
+        this.js();
+    }
     constructor() {
-        self = super();
+        super();
     }
     connectedCallback() {
-        const innerElmts = [];
-        this.childNodes.forEach(elmt => innerElmts.push(elmt));
-
-        const htmlTemp = document.createElement('template');
-        htmlTemp.innerHTML += this.html();
-        if(htmlTemp.content.firstElementChild) {
-            const componentName = self.tagName.toLowerCase().replace('component-','');
-            const styleId = `style-component-${componentName}`;
-            if(!this.ownerDocument.querySelector(`#${styleId}`)) {
-                const cssTemp = document.createElement('template');
-                cssTemp.innerHTML += this.css();
-                cssTemp.content.querySelector("style").id = styleId;
-                this.ownerDocument.head.append(cssTemp.content);
-            }
-            this.prepend(htmlTemp.content);
-
-            this.js(innerElmts);
+        this.innerElmts = [];
+        if (!this.rendered) {
+            Array.from(this.childNodes).forEach(child => this.innerElmts.push(child));
+            this.render();
+            this.rendered = true;
         }
     }
 });
